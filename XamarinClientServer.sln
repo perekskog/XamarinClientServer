@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleShoppingList.Forms.iO
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SimpleShoppingList.Forms", "SimpleShoppingList.Forms\SimpleShoppingList.Forms\SimpleShoppingList.Forms.shproj", "{4D68A82C-C896-4E19-A84A-6061F0728071}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SimpleShoppingListLibrary", "SimpleShoppingListLibrary\SimpleShoppingListLibrary.shproj", "{F7416FBB-6521-4D78-801B-B794FE330758}"
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
