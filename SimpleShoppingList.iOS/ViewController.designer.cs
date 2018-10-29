@@ -13,8 +13,16 @@ namespace SimpleShoppingList.iOS
     [Register ("ViewController")]
     partial class ViewController
     {
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton button_getlist1 { get; set; }
+
         void ReleaseDesignerOutlets ()
         {
+            if (button_getlist1 != null) {
+                button_getlist1.Dispose ();
+                button_getlist1 = null;
+            }
         }
     }
 }
