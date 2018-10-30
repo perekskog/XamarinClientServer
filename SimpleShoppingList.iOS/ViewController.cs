@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using Newtonsoft.Json;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 using UIKit;
 
@@ -34,16 +35,18 @@ namespace SimpleShoppingList.iOS
 
         public async void getList(int list)
         {
-            var client = new HttpClient();
-            client.MaxResponseContentBufferSize = 256000;
-            var RestUrl = "http://localhost:12333/api/shoppingList/1";
+            var RestUrl = "http://talisker.local:12333/api/shoppingList/1";
             var uri = new Uri(string.Format(RestUrl, string.Empty));
-            var response = await client.GetAsync(uri);
-            if (response.IsSuccessStatusCode)
+            var json = await GetJsonAsync(uri);
+            textview.Text = json.ToString();
+        }
+
+        public static async Task<JObject> GetJsonAsync(Uri uri)
+        {
+            using (var client = new HttpClient())
             {
-                var content = await response.Content.ReadAsStringAsync();
-                var Items = JsonConvert.DeserializeObject<List<ShoppingList>>(content);
-                this.currentList = Items;
+                var jsonString = await client.GetStringAsync(uri);
+                return JObject.Parse(jsonString);
             }
         }
     }
