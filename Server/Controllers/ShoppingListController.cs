@@ -28,14 +28,16 @@ namespace SimpleShoppingListWebApi.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            Trace.WriteLine("Get(" + id + ")", "Controller");
+            Console.WriteLine("Get(" + id + ")" + "Controller");
             ShoppingList result = 
                 shoppingLists.FirstOrDefault(s => s.Id == id);
             if(result==null)
             {
+                Console.WriteLine("Get(" + id + ")" + "Controller => NotFound");
                 return NotFound();
             }
 
+            Console.WriteLine("Get(" + id + ")" + "Controller => OK");
             return Ok(result);
         }
 
@@ -44,7 +46,7 @@ namespace SimpleShoppingListWebApi.Controllers
         public IEnumerable Post(ShoppingList newList)
         {
             newList.Id = shoppingLists.Count;
-            Debug.WriteLine("Add shoppinglist " + newList.Name + " " + newList.Id);
+            Console.WriteLine("Add shoppinglist " + newList.Name + " " + newList.Id);
             shoppingLists.Add(newList);
             return shoppingLists;
         }

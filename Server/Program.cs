@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+
 
 namespace SimpleShoppingListWebApi
 {
@@ -14,6 +11,7 @@ namespace SimpleShoppingListWebApi
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine("Hello World!!!");
             BuildWebHost(args).Run();
         }
 

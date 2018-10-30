@@ -17,7 +17,7 @@ namespace SimpleShoppingListWebApi.Controllers
         [HttpPost]
         public IActionResult Post(Item item)
         {
-            Debug.WriteLine("Post item " + item.Name + " to list " + item.ShoppingListId);
+            Console.WriteLine("Post item " + item.Name + " to list " + item.ShoppingListId);
             ShoppingList shoppingList =
                 ShoppingListController.shoppingLists
                                       .Where(s => s.Id == item.ShoppingListId)
@@ -35,7 +35,7 @@ namespace SimpleShoppingListWebApi.Controllers
             {
                 item.Id = shoppingList.Items.Max(i => i.Id) + 1;
             }
-            Debug.WriteLine("Add item " + item.Name + " to list " + shoppingList.Id);
+            Console.WriteLine("Add item " + item.Name + " to list " + shoppingList.Id);
             shoppingList.Items.Add(item);
 
             return Ok(shoppingList);
@@ -45,7 +45,7 @@ namespace SimpleShoppingListWebApi.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, Item item)
         {
-            Debug.WriteLine("Put item " + item.Name + " to list " + item.ShoppingListId);
+            Console.WriteLine("Put item " + item.Name + " to list " + item.ShoppingListId);
 
             ShoppingList shoppingList =
                 ShoppingListController.shoppingLists
@@ -71,7 +71,7 @@ namespace SimpleShoppingListWebApi.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            Debug.WriteLine("Delete item " + id + " from list 1 (hard coded)");
+            Console.WriteLine("Delete item " + id + " from list 1 (hard coded)");
 
             ShoppingList shoppingList =
                 ShoppingListController.shoppingLists
