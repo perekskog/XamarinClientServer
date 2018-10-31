@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
-
+using SimpleShoppingList.Models;
 using UIKit;
 
 namespace SimpleShoppingList.iOS
@@ -48,62 +48,6 @@ namespace SimpleShoppingList.iOS
                 var jsonString = await client.GetStringAsync(uri);
                 return JObject.Parse(jsonString);
             }
-        }
-    }
-
-    public class Item
-    {
-        public Item()
-        {
-            Id = 0;
-            Name = string.Empty;
-            Checked = false;
-            ShoppingListId = 0;
-        }
-        public int Id
-        {
-            get;
-            set;
-        }
-        public string Name
-        {
-            get;
-            set;
-        }
-        public bool Checked
-        {
-            get;
-            set;
-        }
-        public int ShoppingListId
-        {
-            get;
-            set;
-        }
-    }
-
-    public class ShoppingList
-    {
-        public ShoppingList()
-        {
-            Id = 0;
-            Name = String.Empty;
-            Items = new List<Item>();
-        }
-        public int Id
-        {
-            get;
-            set;
-        }
-        public string Name
-        {
-            get;
-            set;
-        }
-        public List<Item> Items
-        {
-            get;
-            set;
         }
     }
 }

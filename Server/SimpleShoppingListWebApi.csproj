@@ -7,7 +7,6 @@
   <ItemGroup>
     <Folder Include="wwwroot\" />
     <Folder Include="wwwroot\Scripts\" />
-    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,5 +49,8 @@
     <Compile Remove="Controllers\XXXController.cs" />
     <Compile Remove="Controllers\XXXController.cs" />
     <Compile Remove="Controllers\ShoppingListController2.cs" />
+    <Compile Remove="Models\Item.cs" />
+    <Compile Remove="Models\ShoppingList.cs" />
   </ItemGroup>
+  <Import Project="..\SimpleShoppingListLibrary\SimpleShoppingListLibrary.projitems" Label="Shared" Condition="Exists('..\SimpleShoppingListLibrary\SimpleShoppingListLibrary.projitems')" />
 </Project>
