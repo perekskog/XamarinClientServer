@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="NLog" Version="4.5.10" />
   </ItemGroup>
 
   <ItemGroup>
@@ -51,6 +52,11 @@
     <Compile Remove="Controllers\ShoppingListController2.cs" />
     <Compile Remove="Models\Item.cs" />
     <Compile Remove="Models\ShoppingList.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="..\SimpleShoppingListLibrary\SimpleShoppingListLibrary.projitems" Label="Shared" Condition="Exists('..\SimpleShoppingListLibrary\SimpleShoppingListLibrary.projitems')" />
 </Project>

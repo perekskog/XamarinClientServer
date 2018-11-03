@@ -1,18 +1,18 @@
 ﻿using System;
-using System.Diagnostics;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-
 
 namespace SimpleShoppingListWebApi
 {
     public class Program
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World 3!!!");
-            BuildWebHost(args).Run();
+            logger.Info("Hello World from NLog 6");
+
+            BuildWebHost(args).Run();   
         }
 
         public static IWebHost BuildWebHost(string[] args) =>

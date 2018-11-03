@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using SimpleShoppingList.Models;
@@ -11,6 +9,8 @@ namespace SimpleShoppingListWebApi.Controllers
     [Route("api/[controller]")]
     public class ShoppingListController : Controller // Or ControllerBase for removing "intellisense noise"
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         public static List<ShoppingList> shoppingLists = new List<ShoppingList>
         {
             new ShoppingList() {Id=0, Name="Hem", Items= {
@@ -28,16 +28,16 @@ namespace SimpleShoppingListWebApi.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            Console.WriteLine("Get(" + id + ")" + "Controller");
+            logger.Trace("Get(" + id + ")" + "Controller");
             ShoppingList result = 
                 shoppingLists.FirstOrDefault(s => s.Id == id);
             if(result==null)
             {
-                Console.WriteLine("Get(" + id + ")" + "Controller => NotFound");
+                logger.Trace("Get(" + id + ")" + "Controller => NotFound");
                 return NotFound();
             }
 
-            Console.WriteLine("Get(" + id + ")" + "Controller => OK");
+            logger.Trace("Get(" + id + ")" + "Controller => OK");
             return Ok(result);
         }
 
@@ -46,7 +46,7 @@ namespace SimpleShoppingListWebApi.Controllers
         public IEnumerable Post(ShoppingList newList)
         {
             newList.Id = shoppingLists.Count;
-            Console.WriteLine("Add shoppinglist " + newList.Name + " " + newList.Id);
+            logger.Trace("Add shoppinglist " + newList.Name + " " + newList.Id);
             shoppingLists.Add(newList);
             return shoppingLists;
         }

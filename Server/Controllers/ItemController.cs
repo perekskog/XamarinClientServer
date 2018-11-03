@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using SimpleShoppingList.Models;
 
@@ -13,11 +9,13 @@ namespace SimpleShoppingListWebApi.Controllers
     [Route("api/[controller]")]
     public class ItemController : Controller
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         // POST api/values
         [HttpPost]
         public IActionResult Post(Item item)
         {
-            Console.WriteLine("Post item " + item.Name + " to list " + item.ShoppingListId);
+            logger.Trace("Post item " + item.Name + " to list " + item.ShoppingListId);
             ShoppingList shoppingList =
                 ShoppingListController.shoppingLists
                                       .Where(s => s.Id == item.ShoppingListId)
@@ -35,7 +33,7 @@ namespace SimpleShoppingListWebApi.Controllers
             {
                 item.Id = shoppingList.Items.Max(i => i.Id) + 1;
             }
-            Console.WriteLine("Add item " + item.Name + " to list " + shoppingList.Id);
+            logger.Trace("Add item " + item.Name + " to list " + shoppingList.Id);
             shoppingList.Items.Add(item);
 
             return Ok(shoppingList);
@@ -45,7 +43,7 @@ namespace SimpleShoppingListWebApi.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, Item item)
         {
-            Console.WriteLine("Put item " + item.Name + " to list " + item.ShoppingListId);
+            logger.Trace("Put item " + item.Name + " to list " + item.ShoppingListId);
 
             ShoppingList shoppingList =
                 ShoppingListController.shoppingLists
@@ -71,7 +69,7 @@ namespace SimpleShoppingListWebApi.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            Console.WriteLine("Delete item " + id + " from list 1 (hard coded)");
+            logger.Trace("Delete item " + id + " from list 1 (hard coded)");
 
             ShoppingList shoppingList =
                 ShoppingListController.shoppingLists
