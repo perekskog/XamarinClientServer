@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using NLog.Web;
+using Microsoft.Extensions.Logging;
 
 namespace SimpleShoppingListWebApi
 {
@@ -10,14 +12,19 @@ namespace SimpleShoppingListWebApi
 
         public static void Main(string[] args)
         {
-            logger.Info("Hello World from NLog 6");
+            logger.Info("Hello World from NLog 13");
 
             BuildWebHost(args).Run();   
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .Build();
+                   .ConfigureLogging(logging =>
+                   {
+                       logging.SetMinimumLevel(LogLevel.Trace);
+                    })
+                   .UseNLog()
+                   .UseStartup<Startup>()
+                   .Build();
     }
 }

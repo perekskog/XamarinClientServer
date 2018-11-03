@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using SimpleShoppingList.Models;
+using Microsoft.Extensions.Logging;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -9,13 +10,18 @@ namespace SimpleShoppingListWebApi.Controllers
     [Route("api/[controller]")]
     public class ItemController : Controller
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private readonly ILogger<ItemController> logger;
+
+        public ItemController(ILogger<ItemController> logger)
+        {
+            this.logger = logger;
+        }
 
         // POST api/values
         [HttpPost]
         public IActionResult Post(Item item)
         {
-            logger.Trace("Post item " + item.Name + " to list " + item.ShoppingListId);
+            logger.LogTrace("Post item " + item.Name + " to list " + item.ShoppingListId);
             ShoppingList shoppingList =
                 ShoppingListController.shoppingLists
                                       .Where(s => s.Id == item.ShoppingListId)
@@ -33,7 +39,7 @@ namespace SimpleShoppingListWebApi.Controllers
             {
                 item.Id = shoppingList.Items.Max(i => i.Id) + 1;
             }
-            logger.Trace("Add item " + item.Name + " to list " + shoppingList.Id);
+            logger.LogTrace("Add item " + item.Name + " to list " + shoppingList.Id);
             shoppingList.Items.Add(item);
 
             return Ok(shoppingList);
@@ -43,7 +49,7 @@ namespace SimpleShoppingListWebApi.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, Item item)
         {
-            logger.Trace("Put item " + item.Name + " to list " + item.ShoppingListId);
+            logger.LogTrace("Put item " + item.Name + " to list " + item.ShoppingListId);
 
             ShoppingList shoppingList =
                 ShoppingListController.shoppingLists
@@ -69,7 +75,7 @@ namespace SimpleShoppingListWebApi.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            logger.Trace("Delete item " + id + " from list 1 (hard coded)");
+            logger.LogTrace("Delete item " + id + " from list 1 (hard coded)");
 
             ShoppingList shoppingList =
                 ShoppingListController.shoppingLists

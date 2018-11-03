@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using SimpleShoppingList.Models;
+using Microsoft.Extensions.Logging;
 
 namespace SimpleShoppingListWebApi.Controllers
 {
     [Route("api/[controller]")]
     public class ShoppingListController : Controller // Or ControllerBase for removing "intellisense noise"
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private readonly ILogger<ShoppingListController> logger;
+
+        public ShoppingListController(ILogger<ShoppingListController> logger)
+        {
+            this.logger = logger;
+        }
 
         public static List<ShoppingList> shoppingLists = new List<ShoppingList>
         {
@@ -28,16 +34,22 @@ namespace SimpleShoppingListWebApi.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            logger.Trace("Get(" + id + ")" + "Controller");
+            logger.LogDebug("1-debug-Get(" + id + ")" + "Controller");
+            logger.LogError("1-error-Get(" + id + ")" + "Controller");
+            logger.LogTrace("1-trace-Get(" + id + ")" + "Controller");
+            logger.LogWarning("1-warning-Get(" + id + ")" + "Controller");
+            logger.LogCritical("1-critical-Get(" + id + ")" + "Controller");
+            logger.LogInformation("1-information-Get(" + id + ")" + "Controller");
+
             ShoppingList result = 
                 shoppingLists.FirstOrDefault(s => s.Id == id);
             if(result==null)
             {
-                logger.Trace("Get(" + id + ")" + "Controller => NotFound");
+                logger.LogTrace("Get(" + id + ")" + "Controller => NotFound");
                 return NotFound();
             }
 
-            logger.Trace("Get(" + id + ")" + "Controller => OK");
+            logger.LogTrace("Get(" + id + ")" + "Controller => OK");
             return Ok(result);
         }
 
@@ -46,7 +58,7 @@ namespace SimpleShoppingListWebApi.Controllers
         public IEnumerable Post(ShoppingList newList)
         {
             newList.Id = shoppingLists.Count;
-            logger.Trace("Add shoppinglist " + newList.Name + " " + newList.Id);
+            logger.LogTrace("Add shoppinglist " + newList.Name + " " + newList.Id);
             shoppingLists.Add(newList);
             return shoppingLists;
         }
