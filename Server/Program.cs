@@ -11,7 +11,7 @@ namespace SimpleShoppingListWebApi
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World 2!!!");
+            Console.WriteLine("Hello World 3!!!");
             BuildWebHost(args).Run();
         }
 
