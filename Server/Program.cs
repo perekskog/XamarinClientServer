@@ -3,18 +3,20 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using NLog.Web;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SimpleShoppingListWebApi
 {
     public class Program
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
-
         public static void Main(string[] args)
         {
-            logger.Info("Hello World from NLog 13");
+            var host = BuildWebHost(args);
 
-            BuildWebHost(args).Run();   
+           var logger = host.Services.GetRequiredService<ILogger<Program>>();
+           logger.LogInformation("Hello World from NLog 13");
+
+            host.Run();   
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
@@ -22,6 +24,8 @@ namespace SimpleShoppingListWebApi
                    .ConfigureLogging(logging =>
                    {
                        logging.SetMinimumLevel(LogLevel.Trace);
+                       logging.ClearProviders();
+                       logging.AddConsole();
                     })
                    .UseNLog()
                    .UseStartup<Startup>()
