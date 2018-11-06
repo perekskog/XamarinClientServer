@@ -14,7 +14,7 @@ namespace SimpleShoppingListWebApi
             var host = BuildWebHost(args);
 
            var logger = host.Services.GetRequiredService<ILogger<Program>>();
-           logger.LogInformation("Hello World from NLog 13");
+           logger.LogInformation("Hello World from NLog 16");
 
             host.Run();   
         }

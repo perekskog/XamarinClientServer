@@ -36,7 +36,10 @@ namespace SimpleShoppingListWebApi
             }
             app.UseDefaultFiles();
             app.UseStaticFiles();
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("default", "api/{controller=Home}/{action=Action}/{id?}");
+            });
         }
     }
 }
