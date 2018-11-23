@@ -34,17 +34,17 @@ namespace SimpleShoppingListWebApi.Controllers
 //        [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            logger.LogInformation("1-information-Get(" + id + ")" + "Controller");
+            logger.LogInformation("Get(" + id + ")");
 
             ShoppingList result = 
                 shoppingLists.FirstOrDefault(s => s.Id == id);
             if(result==null)
             {
-                logger.LogDebug("Get(" + id + ")" + "Controller => NotFound");
+                logger.LogDebug("Get(" + id + ")" + ", Controller => NotFound");
                 return NotFound();
             }
 
-            logger.LogDebug("Get(" + id + ")" + "Controller => OK");
+            logger.LogDebug("Get(" + id + ")" + ", Controller => OK");
             return Ok(result);
         }
 
